@@ -3,10 +3,10 @@ package main
 import (
 	"errors"
 	"fmt"
-	"hollo/grapi"
 	"net"
 	"net/http"
 
+	"github.com/ivanol/grapi"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/zenazn/goji/graceful"

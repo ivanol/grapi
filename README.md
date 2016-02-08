@@ -22,9 +22,9 @@ endpoints for Widget. These are:
 package main
 
 import (
-	"hollo/grapi"
 	"net/http"
 
+	"github.com/ivanol/grapi"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 )

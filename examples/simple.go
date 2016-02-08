@@ -1,11 +1,11 @@
 package main
 
 import (
-	"hollo/grapi"
 	"log"
 	"net/http"
 	"os"
 
+	"github.com/ivanol/grapi"
 	"github.com/jinzhu/gorm"
 	_ "github.com/mattn/go-sqlite3"
 )
