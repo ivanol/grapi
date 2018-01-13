@@ -58,6 +58,11 @@ func (r *request) Param(k string) string {
 	return r.C.URLParams[k]
 }
 
+// SetParam allows changing a URL Param. Only used in LimitQuery
+func (r *request) SetParam(k string, v string) {
+	r.C.URLParams[k] = v
+}
+
 func (r *request) Method() string {
 	return r.method
 }
@@ -196,6 +201,16 @@ func (r *request) PatchResultWithUploaded() bool {
 		return false
 	}
 	r.Uploaded = r.Result
+	switch r.Uploaded.(type) {
+	case NeedsValidation:
+		err := r.Uploaded.(NeedsValidation).ValidateUpload()
+		if err != nil && len(err) != 0 {
+			log.WithFields(log.Fields{"error": err}).Warn("Validation error")
+			j, _ := json.Marshal(err)
+			http.Error(r.W, fmt.Sprintf(`{"errors":%v}`, string(j)), 422)
+			return false
+		}
+	}
 	return true
 }
 

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"gopkg.in/dgrijalva/jwt-go.v2"
 
 	log "github.com/Sirupsen/logrus"
 )
@@ -42,7 +42,7 @@ func (g *Grapi) loginHandler() http.HandlerFunc {
 		body := httpBody(r)
 		var f interface{}
 		if err := json.Unmarshal(body, &f); err != nil {
-			http.Error(w, "{'error':'Malformed JSON'}", 422)
+			http.Error(w, `{"error":"Malformed JSON"}`, 422)
 			log.Error("Receieved malformed JSON body")
 			return
 		}
@@ -50,7 +50,7 @@ func (g *Grapi) loginHandler() http.HandlerFunc {
 		m := f.(map[string]interface{})
 		user_id, err := g.options.LoginModel.CheckLoginDetails(&m, g)
 		if err != nil {
-			http.Error(w, "{'error':'Login failed'}", 403)
+			http.Error(w, `{"error":"Login failed"}`, 403)
 			log.Errorf("Login Failed %v", err)
 			return
 		}

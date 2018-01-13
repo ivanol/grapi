@@ -50,6 +50,7 @@ type ReqToAuthorize interface {
 type ReqToLimit interface {
 	RequestInfo
 	RequestLoginInfo
+	SetParam(string, string)
 	GetDB() *gorm.DB
 	SetDB(*gorm.DB)
 }
